@@ -11,8 +11,9 @@ import SwiftUI
 @Observable
 class TimerObject {
     let timerColor: Color
-    let length: Int
     let timerName: String
+    var length: Int
+
 
     init(timerColor: Color, length: Int, timerName: String) {
         self.timerColor = timerColor
@@ -27,6 +28,10 @@ class TimerObject {
 
     var remainingTime: Int {
         length - timeElapsed
+    }
+
+    var newMaxLength: Int {
+        remainingTime + timeElapsed
     }
 
     var progress: CGFloat {
@@ -52,8 +57,17 @@ class TimerObject {
     }
 
     func resetTimer() {
+        self.length = findNewLength(remainingTime)
         timeElapsed = 0
         isRunning = false
+    }
+
+    func findNewLength(_ remainingTime: Int) -> Int{
+        if remainingTime + 60 < length {
+            return remainingTime + 60
+        } else {
+            return length
+        }
     }
 
     var playButtonDisabled: Bool {

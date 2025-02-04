@@ -99,7 +99,7 @@ struct TimerView: View {
 }
 
 #Preview {
-    TimerView(timerObject: TimerObject(timerColor: .red, length: 45, timerName: "Devyn"), controls: true)
+    TimerView(timerObject: TimerObject(timerColor: .red, length: 120, timerName: "Devyn"), controls: true)
 }
 
 struct ControlButtonStyle: ViewModifier {
