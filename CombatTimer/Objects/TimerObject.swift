@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// This should be renamed to TimerViewModel at some point.
 @Observable
 class TimerObject {
     let timerColor: Color
