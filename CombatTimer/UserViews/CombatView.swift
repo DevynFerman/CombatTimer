@@ -14,6 +14,10 @@ struct CombatView: View {
     @AppStorage("defaultTimerLength")
     private var timerLength: String = "120"
     
+    @AppStorage("defaultTimeRegain")
+    private var timeRegainPerRound: String = "60"
+
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -27,7 +31,8 @@ struct CombatView: View {
                         timerObject: TimerObject(
                             timerColor: player.color,
                             length: Int(timerLength) ?? 120,
-                            timerName: player.name
+                            timerName: player.name,
+                            timeRegain: Int(timeRegainPerRound) ?? 60
                         ),
                         controls: true
                     )

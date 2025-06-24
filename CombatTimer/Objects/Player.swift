@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Player: Identifiable {
+struct Player: Identifiable, Hashable {
     let id = UUID()
     let name: String
     let initiativeOrder: Int

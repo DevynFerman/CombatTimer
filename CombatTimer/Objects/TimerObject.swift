@@ -8,18 +8,20 @@
 import Foundation
 import SwiftUI
 
-// This should be renamed to TimerViewModel at some point.
+// This should be renamed to TimerViewModel, at some point.
 @Observable
 class TimerObject {
     let timerColor: Color
     let timerName: String
+    let timeRegain: Int
     var length: Int
 
 
-    init(timerColor: Color, length: Int, timerName: String) {
+    init(timerColor: Color, length: Int, timerName: String, timeRegain: Int) {
         self.timerColor = timerColor
-        self.length = length
         self.timerName = timerName
+        self.timeRegain = timeRegain
+        self.length = length
     }
 
     var timer: Timer? = nil

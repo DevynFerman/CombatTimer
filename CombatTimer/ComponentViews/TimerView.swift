@@ -27,6 +27,7 @@ struct TimerView: View {
                 Circle()
                     .stroke(lineWidth: width / 10)
                     .foregroundStyle(timerObject.timerColor.opacity(0.4))
+
                 // MARK: Recessed Circle under top circle
                 Circle()
                     .trim(from: 0.0, to: min(1-timerObject.progress, 1.0))
@@ -36,6 +37,7 @@ struct TimerView: View {
                         lineJoin: .miter))
                     .rotationEffect(.degrees(-90))
                     .shadow(radius: 2)
+
                 // MARK: Tracking Circle
                 Circle()
                     .stroke(lineWidth: width / 20)
@@ -44,6 +46,7 @@ struct TimerView: View {
                     .frame(width: width / 8)
                     .offset(x: -width / 2)
                     .rotationEffect(.degrees(90.0 - 360 * timerObject.progress))
+
                 // MARK: Countdown and original time
                 VStack{
                     // Original Time
@@ -99,7 +102,7 @@ struct TimerView: View {
 }
 
 #Preview {
-    TimerView(timerObject: TimerObject(timerColor: .red, length: 120, timerName: "Devyn"), controls: true)
+    TimerView(timerObject: TimerObject(timerColor: .red, length: 120, timerName: "Devyn", timeRegain: 30), controls: true)
 }
 
 struct ControlButtonStyle: ViewModifier {
