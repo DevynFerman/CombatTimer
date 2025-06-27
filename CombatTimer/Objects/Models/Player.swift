@@ -13,12 +13,12 @@ struct Player: Identifiable, Hashable {
     let name: String
     let initiativeOrder: Int
     let color: Color
-    
-    init (name: String, initiativeOrder: Int) {
+    let playerTimer: TimerObject
+
+    init (name: String, initiativeOrder: Int, playerTimer: TimerObject) {
         self.initiativeOrder = initiativeOrder
         self.name = name
-        self.color = Player.availableColors.randomElement() ?? .gray
+        self.color = playerTimer.timerColor
+        self.playerTimer = playerTimer
     }
-    
-    private static let availableColors: [Color] = [.red, .blue, .green, .orange, .purple, .pink, .teal]
 }

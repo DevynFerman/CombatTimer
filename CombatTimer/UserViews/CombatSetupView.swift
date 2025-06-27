@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct CombatSetupView: View {
-    @EnvironmentObject var roster: PlayerRoster
+    @Bindable var roster: PlayerRoster
+
+    @AppStorage("defaultTimerLength")
+    private var timerLength: String = "120"
+
+    @AppStorage("defaultTimeRegain")
+    private var timeRegainPerRound: String = "60"
 
     @State private var currentName = ""
     @State private var shouldNavigate = false
@@ -57,7 +63,7 @@ struct CombatSetupView: View {
                         .padding()
                         .buttonStyle(.automatic)                    }
 
-                    InitiativeOrderListView()
+                    InitiativeOrderListView(roster: roster)
                         .padding(.horizontal)
 
                     if #available(iOS 26.0, *) {
@@ -81,13 +87,13 @@ struct CombatSetupView: View {
     }
 
     private func UpdatePlayerRoster(name: String, initiativeOrder: Int) {
-        let newPlayer = Player(name: name, initiativeOrder: initiativeOrder)
+        let newPlayerTimer = TimerObject(
+            length: Int(timerLength) ?? 120,
+            timerName: name,
+            timeRegain: Int(timeRegainPerRound) ?? 60
+        )
+        let newPlayer = Player(name: name, initiativeOrder: initiativeOrder, playerTimer: newPlayerTimer)
         roster.players.append(newPlayer)
         initativeOrder += 1
     }
 }
-
-#Preview {
-    CombatSetupView()
-}
-

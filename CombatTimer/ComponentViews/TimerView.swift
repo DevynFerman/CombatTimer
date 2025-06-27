@@ -12,7 +12,9 @@ import SwiftUI
 struct TimerView: View {
     let timerObject: TimerObject
     let controls: Bool
+
     @State private var width: CGFloat = 0
+
     var body: some View {
         VStack {
             HStack {
@@ -67,6 +69,7 @@ struct TimerView: View {
             }
             .padding(width / 8)
             .animation(.linear, value: timerObject.remainingTime)
+
             if controls {
                 HStack{
                     Button {
@@ -93,6 +96,7 @@ struct TimerView: View {
             }
         }
     }
+
     func displayTime(_ totalSeconds: Int) -> String {
         let minutes = totalSeconds / 60
         let seconds = totalSeconds % 60
@@ -102,20 +106,7 @@ struct TimerView: View {
 }
 
 #Preview {
-    TimerView(timerObject: TimerObject(timerColor: .red, length: 120, timerName: "Devyn", timeRegain: 30), controls: true)
+    TimerView(timerObject: TimerObject(length: 120, timerName: "Devyn", timeRegain: 30), controls: true)
 }
 
-struct ControlButtonStyle: ViewModifier {
-    let color: Color
-    let disabled: Bool
-    func body(content: Content) -> some View {
-        content
-            .font(.title)
-            .bold()
-            .frame(width: 50, height: 50)
-            .background(color.opacity(disabled ? 0.5 : 1.0))
-            .foregroundStyle(.white)
-            .clipShape(Circle())
-            .disabled(disabled)
-    }
-}
+

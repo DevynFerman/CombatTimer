@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct CombatView: View {
-    @EnvironmentObject
-    var roster: PlayerRoster
-    
+    @Environment(PlayerRoster.self) var roster
+
     @AppStorage("defaultTimerLength")
     private var timerLength: String = "120"
     
     @AppStorage("defaultTimeRegain")
     private var timeRegainPerRound: String = "60"
 
-    
     var body: some View {
         ScrollView {
             VStack {
@@ -27,23 +25,11 @@ struct CombatView: View {
                     .padding()
 
                 ForEach(roster.players) { player in
-                    TimerView(
-                        timerObject: TimerObject(
-                            timerColor: player.color,
-                            length: Int(timerLength) ?? 120,
-                            timerName: player.name,
-                            timeRegain: Int(timeRegainPerRound) ?? 60
-                        ),
-                        controls: true
-                    )
-                    .padding(.bottom, 10)
+                    TimerView(timerObject: player.playerTimer, controls: true)
+                        .padding(.bottom, 10)
                 }
             }
             .padding()
         }
     }
-}
-
-#Preview {
-    CombatView()
 }

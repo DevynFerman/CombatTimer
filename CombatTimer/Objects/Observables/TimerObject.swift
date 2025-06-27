@@ -6,19 +6,21 @@
 //
 
 import Foundation
+import Observation
 import SwiftUI
 
-// This should be renamed to TimerViewModel, at some point.
+// This should be renamed to TimerViewModel and refactored, at some point.
 @Observable
 class TimerObject {
+
     let timerColor: Color
     let timerName: String
     let timeRegain: Int
     var length: Int
+    private static let availableColors: [Color] = [.red, .blue, .green, .orange, .purple, .pink, .teal]
 
-
-    init(timerColor: Color, length: Int, timerName: String, timeRegain: Int) {
-        self.timerColor = timerColor
+    init(length: Int, timerName: String, timeRegain: Int) {
+        self.timerColor = TimerObject.availableColors.randomElement() ?? .gray
         self.timerName = timerName
         self.timeRegain = timeRegain
         self.length = length
@@ -86,5 +88,26 @@ class TimerObject {
     var resetButtonDisabled: Bool {
         guard remainingTime != length, !isRunning else { return true }
         return false
+    }
+}
+
+extension TimerObject: Equatable {
+    static func == (lhs: TimerObject, rhs: TimerObject) -> Bool {
+        if lhs.timerName != rhs.timerName ||
+           lhs.timeRegain != rhs.timeRegain {
+            return false
+        }
+        return true
+    }
+
+    static func < (lhs: TimerObject, rhs: TimerObject) -> Bool {
+        lhs.remainingTime < rhs.remainingTime
+    }
+}
+
+extension TimerObject: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(timerName)
+        hasher.combine(timeRegain)
     }
 }

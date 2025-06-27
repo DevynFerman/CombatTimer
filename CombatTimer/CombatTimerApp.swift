@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct CombatTimerApp: App {
-    @StateObject private var roster = PlayerRoster()
-    
+    private var roster = PlayerRoster()
+
     var body: some Scene {
         WindowGroup {
-            HomeScreenView()
-                .environmentObject(roster)
+            HomeScreenView(roster: roster)
+                .environment(roster)
 
         }
     }

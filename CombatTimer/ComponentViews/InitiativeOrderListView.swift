@@ -9,8 +9,7 @@ import Foundation
 import SwiftUI
 
 struct InitiativeOrderListView: View {
-    @EnvironmentObject
-    var roster: PlayerRoster
+    @Bindable var roster: PlayerRoster
 
     var body: some View {
             List {
@@ -18,6 +17,7 @@ struct InitiativeOrderListView: View {
                     Text(player.name)
                 }
                 .onMove(perform: move)
+                .onDelete(perform: delete)
                 .listRowBackground(Color.white.opacity(0.25))
             }
             .listStyle(.plain)
@@ -32,8 +32,10 @@ struct InitiativeOrderListView: View {
             roster.players.move(fromOffsets: source, toOffset: destination)
         }
     }
-}
 
-#Preview {
-    InitiativeOrderListView()
+    private func delete(at offsets: IndexSet) {
+        withAnimation {
+            roster.players.remove(atOffsets: offsets)
+        }
+    }
 }

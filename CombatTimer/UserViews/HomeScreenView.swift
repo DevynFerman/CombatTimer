@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeScreenView: View {
+    var roster: PlayerRoster
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -18,7 +20,7 @@ struct HomeScreenView: View {
                 
                 VStack {
                     NavigationLink("Prepare for Combat!") {
-                        CombatSetupView()
+                        CombatSetupView(roster: roster)
                     }
                     .buttonStyle(PrimaryButtonStyle())
                     .padding()
@@ -32,8 +34,4 @@ struct HomeScreenView: View {
             }
         }
     }
-}
-
-#Preview {
-    HomeScreenView()
 }
